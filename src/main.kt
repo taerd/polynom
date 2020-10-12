@@ -35,4 +35,9 @@ fun main(){
     ))
     println(n2)
 
+    println("Панель")
+
+    val w = MainWindow()
+    w.isVisible =true
+
 }
