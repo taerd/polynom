@@ -1,11 +1,13 @@
 class Newton(xfx:MutableMap<Double,Double>):Polynom() {
-    val xfx = xfx.toMutableMap()
+    var xfx = xfx.toMutableMap()
 
     private val divDiff = mutableMapOf<Pair<Int, Int>, Double>()
 
-    private var dots = DoubleArray(xfx.size)
+    var dots = DoubleArray(xfx.size)
+    private set
 
-    private var values = DoubleArray(xfx.size)
+    var values = DoubleArray(xfx.size)
+    private set
 
     init {
         var o = 0
@@ -30,7 +32,9 @@ class Newton(xfx:MutableMap<Double,Double>):Polynom() {
                 k++
             }
         }
-        p += Polynom(doubleArrayOf(xfx.getValue(dots[0])))
+        if(xfx.isNotEmpty()) {
+            p += Polynom(doubleArrayOf(xfx.getValue(dots[0])))
+        }
         coef = p.coefficients
     }
 
@@ -50,8 +54,43 @@ class Newton(xfx:MutableMap<Double,Double>):Polynom() {
             }
         }
     }
+    fun addNote(x:Double,y:Double){
+        for(i in 0..dots.size-1){
+            if(dots[i]==x) {
+                println("Невозможно добавить узел ($x,$y) так как он уже записан")
+                return
+            }
+        }
 
+        //изменение самих массивов с точками и значениями
+        xfx[x] = y//добавили в mutablemap
+        val dots1=DoubleArray(xfx.size)
+        val values1=DoubleArray(xfx.size)
+        for(i in 0..dots.size-1){
+            dots1[i]=dots[i]
+            values1[i]=values[i]
+        }
+        dots1[dots.size]=x
+        values1[values.size]=y
+        dots=dots1
+        values=values1
 
+        //построение самого полинома
+        val p = Polynom()
+        var i = 0
+        var k = 1
+        var r = Polynom(doubleArrayOf(1.0))
+        xfx.forEach {//добавить в p f(x0)
+            if (k < xfx.size) {
+                r *= Polynom(doubleArrayOf(-1*it.key, 1.0))//получаем следущий множитель
+                p += r * divDifference(0, i + 1)
+                i++
+                k++
+            }
+        }
+        p += Polynom(doubleArrayOf(xfx.getValue(dots[0])))
+        coef = p.coefficients
+    }
 }
 
 

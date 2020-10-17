@@ -1,4 +1,5 @@
 fun main(){
+    /*
     println("Составление полиномов")
     val p1 = Polynom(doubleArrayOf(1.0, 0.0, 3.0, 0.0, 0.0))
     val p2 = Polynom(doubleArrayOf(0.0, 0.0, 0.0, 0.0, 0.0))
@@ -20,6 +21,8 @@ fun main(){
         1.0 to 1.0
     ))
     println(l1)
+     */
+    /*
     println("Ньютон вычисление")
     val n1 = Newton(mutableMapOf(
             -1.0 to 4.0,
@@ -29,14 +32,25 @@ fun main(){
     ))
     println(n1)
     val n2 = Newton(mutableMapOf(
-            0.0 to -1.0,
-            1.0 to 1.0,
-            0.5 to 1.0
+            -1.0 to 4.0,
+            0.0 to 2.0,
+            1.0 to 0.0
     ))
     println(n2)
+    println("Добавляем точку последнюю")
+    n2.addNote(2.0,1.0)
+    println(n2)
+     */
+    /*
+    val p11 = Polynom(doubleArrayOf(-3.0,1.0))
+    val p7 = Polynom(doubleArrayOf(-3.25,1.0))
+    val p8 = Polynom(doubleArrayOf(-3.5,1.0))
+    val p9 = Polynom(doubleArrayOf(-3.75,1.0))
+    val p10 = Polynom(doubleArrayOf(-4.0,1.0))
 
+    println(p7*p8*p9*p10*p11)
     println("Панель")
-
+     */
     val w = MainWindow()
     w.isVisible =true
 

@@ -32,6 +32,7 @@ open class Polynom(coef: DoubleArray) {
      */
     constructor() : this(doubleArrayOf(0.0))
 
+
     /**
      * Удаление нулевых коэффициентов при старших степенях
      */
