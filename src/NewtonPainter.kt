@@ -8,10 +8,10 @@ class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
         drawLines(g)
     }
 
-    private fun drawPoints(g:Graphics?){
+    private fun drawPoints(g:Graphics?){//лучше вынести это в отдельный класс pointsPainter
         if(g!=null){
             g.color=Color.GREEN
-            val pointsArray = mutableMapOf<Double,Double>()//точек на 1 больше чем разбиений
+            val pointsArray = mutableMapOf<Double,Double>()
             for(i in 0..newton.dots.size-1){
                 pointsArray[newton.dots[i]]=newton.values[i]
             }
@@ -32,19 +32,22 @@ class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
             g.color= Color.BLUE
             val n = ((plane.xMax-plane.xMin)*10).toInt()//количество разбиений
             val pointsArray = mutableMapOf<Double,Double>()//точек на 1 больше чем разбиений
-            for(i in 0..n){
-                //добавление точек в карту с его значениями
-                pointsArray[plane.xMin + ((plane.xMax-plane.xMin)*i)/n] = newton.invoke(plane.xMin + ((plane.xMax-plane.xMin)*i)/n)
+            if(newton.dots.size!=0){
+                for(i in 0..n){
+                    //добавление точек в карту с его значениями
+                    pointsArray[plane.xMin + ((plane.xMax-plane.xMin)*i)/n] = newton.invoke(plane.xMin + ((plane.xMax-plane.xMin)*i)/n)
+                }
+                //отрисовываем линии между двумя соседними точками
+                for(i in 0..pointsArray.size-2){
+                    g.drawLine(
+                            Converter.xCrt2Scr(pointsArray.keys.elementAt(i),plane),//x1
+                            Converter.yCrt2Scr(pointsArray.values.elementAt(i),plane),//y1
+                            Converter.xCrt2Scr(pointsArray.keys.elementAt(i+1),plane),//x2
+                            Converter.yCrt2Scr(pointsArray.values.elementAt(i+1),plane)//y2
+                    )
+                }
             }
-            //отрисовываем линии между двумя соседними точками
-            for(i in 0..pointsArray.size-2){
-                g.drawLine(
-                        Converter.xCrt2Scr(pointsArray.keys.elementAt(i),plane),//x1
-                        Converter.yCrt2Scr(pointsArray.values.elementAt(i),plane),//y1
-                        Converter.xCrt2Scr(pointsArray.keys.elementAt(i+1),plane),//x2
-                        Converter.yCrt2Scr(pointsArray.values.elementAt(i+1),plane)//y2
-                )
-            }
+
         }
     }
 }

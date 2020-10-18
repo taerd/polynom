@@ -50,14 +50,14 @@ class MainWindow : JFrame(){
                 controlPanel.smYMax.number.toDouble()
         )
         val dp = CartesianPainter(plane)
-        val polynomp = NewtonPainter(plane,polynomNewton)
+        val newtonp = NewtonPainter(plane,polynomNewton)
         mainPanel.addComponentListener(object: ComponentAdapter(){
             override fun componentResized(e: ComponentEvent?){
                 dp.plane.realWidth=mainPanel.width
-                polynomp.plane.realWidth=mainPanel.width
+                newtonp.plane.realWidth=mainPanel.width
 
                 dp.plane.realHeight=mainPanel.height
-                polynomp.plane.realHeight=mainPanel.height
+                newtonp.plane.realHeight=mainPanel.height
 
                 mainPanel.repaint()
             }
@@ -78,21 +78,21 @@ class MainWindow : JFrame(){
 
         controlPanel.addValChangeListener {
             dp.plane.xMin=controlPanel.smXMin.number.toDouble()
-            polynomp.plane.xMin=controlPanel.smXMin.number.toDouble()
+            newtonp.plane.xMin=controlPanel.smXMin.number.toDouble()
 
             dp.plane.xMax=controlPanel.smXMax.number.toDouble()
-            polynomp.plane.xMax=controlPanel.smXMax.number.toDouble()
+            newtonp.plane.xMax=controlPanel.smXMax.number.toDouble()
 
             dp.plane.yMin=controlPanel.smYMin.number.toDouble()
-            polynomp.plane.yMin=controlPanel.smYMin.number.toDouble()
+            newtonp.plane.yMin=controlPanel.smYMin.number.toDouble()
 
             dp.plane.yMax=controlPanel.smYMax.number.toDouble()
-            polynomp.plane.yMax=controlPanel.smYMax.number.toDouble()
+            newtonp.plane.yMax=controlPanel.smYMax.number.toDouble()
 
             mainPanel.repaint()
         }
         mainPanel.addPainter(dp)
-        mainPanel.addPainter(polynomp)
+        mainPanel.addPainter(newtonp)
         //mainPanel.painter=polynomp
     }
 }
