@@ -54,9 +54,10 @@ class Newton(xfx:MutableMap<Double,Double>):Polynom() {
             }
         }
     }
+    val Epsilion = 0.05
     fun addNote(x:Double,y:Double){
         for(i in 0..dots.size-1){
-            if(dots[i]==x) {
+            if(dots[i]-Epsilion<x && dots[i]+Epsilion>x) {
                 println("Невозможно добавить узел ($x,$y) так как он уже записан")
                 return
             }

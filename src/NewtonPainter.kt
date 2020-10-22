@@ -1,5 +1,4 @@
-import java.awt.Color
-import java.awt.Graphics
+import java.awt.*
 
 class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
 
@@ -29,8 +28,18 @@ class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
 
     private fun drawLines(g:Graphics?){
         if(g!=null){
-            g.color= Color.BLUE
-            val n = ((plane.xMax-plane.xMin)*10).toInt()//количество разбиений
+            val g2 = g as Graphics2D
+            g2.color= Color.BLUE
+            g2.stroke=BasicStroke(2.0f)
+            val rh = mapOf(
+                    RenderingHints.KEY_ANTIALIASING to RenderingHints.VALUE_ANTIALIAS_ON,
+                    RenderingHints.KEY_INTERPOLATION to RenderingHints.VALUE_INTERPOLATION_BILINEAR,
+                    RenderingHints.KEY_RENDERING to RenderingHints.VALUE_RENDER_QUALITY,
+                    RenderingHints.KEY_DITHERING to RenderingHints.VALUE_DITHER_ENABLE
+            )
+            g2.setRenderingHints(rh)
+            val n = (plane.realWidth)//количество разбиений
+            //val n = ((plane.xMax-plane.xMin)*10).toInt()//количество разбиений
             val pointsArray = mutableMapOf<Double,Double>()//точек на 1 больше чем разбиений
             if(newton.dots.size!=0){
                 for(i in 0..n){
@@ -39,7 +48,7 @@ class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
                 }
                 //отрисовываем линии между двумя соседними точками
                 for(i in 0..pointsArray.size-2){
-                    g.drawLine(
+                    g2.drawLine(
                             Converter.xCrt2Scr(pointsArray.keys.elementAt(i),plane),//x1
                             Converter.yCrt2Scr(pointsArray.values.elementAt(i),plane),//y1
                             Converter.xCrt2Scr(pointsArray.keys.elementAt(i+1),plane),//x2
