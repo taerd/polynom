@@ -100,6 +100,13 @@ class MainWindow : JFrame(){
 
             mainPanel.repaint()
         }
+
+        controlPanel.addColorListener {
+            newtonp.setColor(controlPanel.getColor1())
+            derivednp.setColor(controlPanel.getColor2())
+            mainPanel.paint(mainPanel.graphics)
+        }
+
         mainPanel.addPainter(dp)
         mainPanel.addPainter(newtonp)
         mainPanel.addPainter(derivednp)

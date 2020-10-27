@@ -34,22 +34,20 @@ fun main(){
     println(n1)
     val n2 = Newton(mutableMapOf(
             -1.0 to 7.5,
-            1.0 to 1.0,
-            2.0 to 12.0
+            1.0 to 1.0
     ))
     println(n2)
     println("Добавляем точку последнюю")
-    n2.addNote(3.0,6.0)
+    n2.addNote(2.0,12.0)
     println(n2)
     val n3 = DerivedNewton(mutableMapOf(
             -1.0 to 7.5,
-            1.0 to 1.0,
-            2.0 to 12.0
+            1.0 to 1.0
     ))
     println("производный от n2 полином")
     println(n3)
     println("добавим точку в производный класс последнюю")
-    n3.addNote(3.0, 6.0)
+    n3.addNote(2.0, 12.0)
     println(n3)
     /*
     val p11 = Polynom(doubleArrayOf(-3.0,1.0))

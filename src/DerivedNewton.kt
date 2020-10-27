@@ -15,7 +15,7 @@ class DerivedNewton(xfx:MutableMap<Double,Double>):Newton(xfx) {
         if(this.coefficients.size<2) newCoef
         newCoef=DoubleArray(if(this.coefficients.size-1 < 1) 1 else this.coefficients.size-1)
         multipliers=this.coefficients
-        if(this.coefficients.size < 2) newCoef[0]=0.0
+        if(this.coefficients.size == 1) newCoef[0]=0.0
         for (i in 1.. this.coefficients.size-1){
             newCoef[i-1]=i*multipliers[i]
         }

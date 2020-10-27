@@ -2,6 +2,9 @@ import java.awt.*
 
 class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
 
+    private var color = Color.GREEN
+    public fun setColor(newColor: Color){color = newColor}
+
     override fun paint(g:Graphics?){
         drawPoints(g)
         drawLines(g)
@@ -29,8 +32,8 @@ class NewtonPainter(val plane:CartesianScreenPlane, val newton:Newton):Painter {
     private fun drawLines(g:Graphics?){
         if(g!=null){
             val g2 = g as Graphics2D
-            g2.color= Color.BLUE
             g2.stroke=BasicStroke(2.0f)
+            g2.color=color
             val rh = mapOf(
                     RenderingHints.KEY_ANTIALIASING to RenderingHints.VALUE_ANTIALIAS_ON,
                     RenderingHints.KEY_INTERPOLATION to RenderingHints.VALUE_INTERPOLATION_BILINEAR,
