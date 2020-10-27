@@ -14,6 +14,7 @@ class MainWindow : JFrame(){
     private val mainPanel: JPanel
     private val controlPanel: ControlPanel
     private var polynomNewton = Newton(mutableMapOf())
+    private var derivedNewton = DerivedNewton(mutableMapOf())
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(minSize.width+200, minSize.height+400)
@@ -51,13 +52,16 @@ class MainWindow : JFrame(){
         )
         val dp = CartesianPainter(plane)
         val newtonp = NewtonPainter(plane,polynomNewton)
+        val derivednp = NewtonPainter(plane,derivedNewton)
         mainPanel.addComponentListener(object: ComponentAdapter(){
             override fun componentResized(e: ComponentEvent?){
                 dp.plane.realWidth=mainPanel.width
                 newtonp.plane.realWidth=mainPanel.width
+                derivednp.plane.realWidth=mainPanel.width
 
                 dp.plane.realHeight=mainPanel.height
                 newtonp.plane.realHeight=mainPanel.height
+                derivednp.plane.realHeight=mainPanel.height
 
                 mainPanel.repaint()
             }
@@ -70,6 +74,7 @@ class MainWindow : JFrame(){
                     if(e.point.x < plane.realWidth && e.point.x > 0 && e.point.y > 0 && e.point.y < plane.realHeight ){
                         //добавление в полином точек
                         polynomNewton.addNote(Converter.xScr2Crt(e.point.x,plane),Converter.yScr2Crt(e.point.y,plane))
+                        derivedNewton.addNote(Converter.xScr2Crt(e.point.x,plane),Converter.yScr2Crt(e.point.y,plane))
                         mainPanel.repaint()
                     }
                 }
@@ -79,20 +84,25 @@ class MainWindow : JFrame(){
         controlPanel.addValChangeListener {
             dp.plane.xMin=controlPanel.smXMin.number.toDouble()
             newtonp.plane.xMin=controlPanel.smXMin.number.toDouble()
+            derivednp.plane.xMin=controlPanel.smXMin.number.toDouble()
 
             dp.plane.xMax=controlPanel.smXMax.number.toDouble()
             newtonp.plane.xMax=controlPanel.smXMax.number.toDouble()
+            derivednp.plane.xMax=controlPanel.smXMax.number.toDouble()
 
             dp.plane.yMin=controlPanel.smYMin.number.toDouble()
             newtonp.plane.yMin=controlPanel.smYMin.number.toDouble()
+            derivednp.plane.yMin=controlPanel.smYMin.number.toDouble()
 
             dp.plane.yMax=controlPanel.smYMax.number.toDouble()
             newtonp.plane.yMax=controlPanel.smYMax.number.toDouble()
+            derivednp.plane.yMax=controlPanel.smYMax.number.toDouble()
 
             mainPanel.repaint()
         }
         mainPanel.addPainter(dp)
         mainPanel.addPainter(newtonp)
+        mainPanel.addPainter(derivednp)
         //mainPanel.painter=polynomp
     }
 }
